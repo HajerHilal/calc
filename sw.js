@@ -1,8 +1,8 @@
-const cacheName = 'counter-app-cache-v1';
-const filesToCache = [
-  '/index.html',
-  '/manifest.json',
-  '/icon.png'
+const cacheName='counter-app-cache-v1';
+const filesToCache=[
+  'index.html',
+  'manifest.json',
+  'icon.png'
 ];
 
 self.addEventListener('install', event=>{
