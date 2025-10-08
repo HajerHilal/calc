@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تطبيق حساب العدادات</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #b71c1c;
+      margin-bottom: 25px;
+    }
+
+    .counter, .final-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #ffe5e5;
+      border: 1px solid #b71c1c;
+    }
+
+    .counter label, .final-section label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+      color: #b71c1c;
+      font-size: 15px;
+    }
+
+    .counter input, .final-section input {
+      width: 45%;
+      padding: 8px;
+      margin: 5px 2%;
+      border: 1px solid #b71c1c;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: #fff;
+    }
+
+    .result-box {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: #fff;
+    }
+
+    #result1 { background-color: #2fcf37; }
+    #result2 { background-color: #2fcf37; }
+    #sumResult { background-color: #612bdf; }
+    #finalResult { background-color: #e45c3a; }
+
+    .positive { background-color: #2e7d32; }  
+    .negative { background-color: #b71c1c; }  
+    .zero { background-color: #1a237e; }      
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>تطبيق حساب العدادات</h2>
+
+    <!-- العداد 1 -->
+    <div class="counter">
+      <label>العداد 1</label>
+      <input type="number" id="a1_receive" placeholder="استلام">
+      <input type="number" id="a1_deliver" placeholder="تسليم">
+      <div class="result-box" id="result1"><span>نتيجة 1: </span><span id="val1">-</span></div>
+    </div>
+
+    <!-- العداد 2 -->
+    <div class="counter">
+      <label>العداد 2</label>
+      <input type="number" id="a2_receive" placeholder="استلام">
+      <input type="number" id="a2_deliver" placeholder="تسليم">
+      <div class="result-box" id="result2"><span>نتيجة 2: </span><span id="val2">-</span></div>
+    </div>
+
+    <!-- جمع العدادات + الدين -->
+    <div class="final-section">
+      <div class="result-box" id="sumResult"><span>مجموع العدادات: </span><span id="valSum">-</span></div>
+      
+      <label>الدين</label>
+      <input type="number" id="debt" placeholder="الدين">
+      
+      <label>سعر الصرف</label>
+      <input type="number" id="exchange" placeholder="سعر الصرف">
+      
+      <div class="result-box" id="finalResult"><span>النتيجة النهائية: </span><span id="valFinal">-</span></div>
+    </div>
+  </div>
+
+  <script>
+    const a1_receive = document.getElementById("a1_receive");
+    const a1_deliver = document.getElementById("a1_deliver");
+    const a2_receive = document.getElementById("a2_receive");
+    const a2_deliver = document.getElementById("a2_deliver");
+    const debt = document.getElementById("debt");
+    const exchange = document.getElementById("exchange");
+
+    const val1 = document.getElementById("val1");
+    const val2 = document.getElementById("val2");
+    const valSum = document.getElementById("valSum");
+    const valFinal = document.getElementById("valFinal");
+
+    const result1 = document.getElementById("result1");
+    const result2 = document.getElementById("result2");
+    const sumResult = document.getElementById("sumResult");
+    const finalResultDiv = document.getElementById("finalResult");
+
+    function getColorClass(num) {
+      if (num > 0) return 'positive';
+      if (num < 0) return 'negative';
+      return 'zero';
+    }
+
+    function updateResults() {
+      let diff1 = (parseFloat(a1_deliver.value) || 0) - (parseFloat(a1_receive.value) || 0);
+      let diff2 = (parseFloat(a2_deliver.value) || 0) - (parseFloat(a2_receive.value) || 0);
+
+      val1.innerText = diff1;
+      result1.className = 'result-box ' + getColorClass(diff1);
+
+      val2.innerText = diff2;
+      result2.className = 'result-box ' + getColorClass(diff2);
+
+      let debtValue = parseFloat(debt.value) || 0;
+      let sum = diff1 + diff2 - debtValue;
+
+      valSum.innerText = sum;
+      sumResult.className = 'result-box ' + getColorClass(sum);
+
+      let final = sum * (parseFloat(exchange.value) || 0);
+      valFinal.innerText = final;
+      finalResultDiv.className = 'result-box ' + getColorClass(final);
+    }
+
+    [a1_receive, a1_deliver, a2_receive, a2_deliver, debt, exchange].forEach(input => {
+      input.addEventListener("input", updateResults);
+    });
+  </script>
+</body>
+</html>
