@@ -1,15 +1,11 @@
 {
   "name": "تطبيق حساب العدادات",
-  "short_name": "عدادات",
-  "start_url": "./index.html",
+  "short_name": "CounterApp",
+  "start_url": "/CounterApp/index.html",
   "display": "standalone",
   "background_color": "#f5f5f5",
   "theme_color": "#b71c1c",
-  "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
+  "icons":[
+    { "src":"icon.png", "sizes":"192x192", "type":"image/png" }
   ]
 }
