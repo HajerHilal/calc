@@ -1,9 +1,8 @@
 const cacheName = 'counter-app-cache-v1';
 const filesToCache = [
-  '/CounterApp/',
-  '/CounterApp/index.html',
-  '/CounterApp/manifest.json',
-  '/CounterApp/icon.png'
+  '/index.html',
+  '/manifest.json',
+  '/icon.png'
 ];
 
 self.addEventListener('install', event=>{
